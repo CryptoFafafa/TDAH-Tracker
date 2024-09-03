@@ -79,132 +79,175 @@ document.addEventListener('DOMContentLoaded', () => {
     let expandedCategories = JSON.parse(localStorage.getItem("expandedCategories")) || {};
 
     // Mostrar/ocultar la aplicación y display
-    displayBar.addEventListener('click', () => {
-        const isVisible = app.classList.contains('show');
-        app.classList.toggle('show');
-        displayBar.innerText = isVisible ? 'Mostrar Aplicación' : 'Ocultar Aplicación';
+displayBar.addEventListener('click', () => {
+    const isVisible = app.classList.contains('show');
+    app.classList.toggle('show');
+    displayBar.innerText = isVisible ? 'Mostrar Aplicación' : 'Ocultar Aplicación';
 
-        // Ocultar o mostrar la sección display
-        if (isVisible) {
-            display.style.display = 'flex'; // Muestra el display
-            loadTaskSummary(); // Refrescar la sección de resumen de tareas al mostrar el display
-        } else {
-            display.style.display = 'none'; // Oculta el display
-        }
-    });
+    // Ocultar o mostrar la sección display
+    if (isVisible) {
+        display.style.display = 'flex'; // Muestra el display
+        loadTaskSummary(); // Refrescar la sección de resumen de tareas al mostrar el display
+        initializeTodos(); // Inicializar y ordenar la lista de tareas
+    } else {
+        display.style.display = 'none'; // Oculta el display
+    }
+});
+
 
     // Función para obtener el estilo basado en la urgencia
     function getStylesForUrgency(urgency) {
         let fontSize, opacity, letterSpacing, fontWeight;
 
         switch (urgency) {
-            case 8:
-                fontSize = '80px';
-                opacity = '1';
-                letterSpacing = '-0.103em';
-                fontWeight = '900';
-                break;
-            case 7:
-                fontSize = '70px';
-                opacity = '1';
-                letterSpacing = '-0.102em';
-                fontWeight = '800';
-                break;
-            case 6:
-                fontSize = '60px';
-                opacity = '1';
-                letterSpacing = '-0.101em';
-                fontWeight = '700';
-                break;
-            case 5:
-                fontSize = '50px';
-                opacity = '0.9';
-                letterSpacing = '0em';
-                fontWeight = '600';
-                break;
-            case 4:
-                fontSize = '40px';
-                opacity = '0.7';
-                letterSpacing = '0.05em';
-                fontWeight = '500';
-                break;
-            case 3:
-                fontSize = '30px';
-                opacity = '0.5';
-                letterSpacing = '0.1em';
-                fontWeight = '400';
-                break;
-            case 2:
-                fontSize = '20px';
-                opacity = '0.2';
-                letterSpacing = '0.15em';
-                fontWeight = '300';
-                break;
-            case 1:
-                fontSize = '15px';
-                opacity = '0.1';
-                letterSpacing = '0.2em';
-                fontWeight = '200';
-                break;
-            case 0:
-                fontSize = '15px';
-                opacity = '0.1';
-                letterSpacing = '0.25em';
-                fontWeight = '100';
-                break;
-            default:
-                fontSize = '15px';
-                opacity = '0.1';
-                letterSpacing = '0.3em';
-                fontWeight = '100';
-        }
+    case 8:
+        fontSize = '62px';
+        opacity = '1';
+        letterSpacing = '-0.103em';
+        fontWeight = '900';
+        break;
+    case 7:
+        fontSize = '54px';
+        opacity = '1';
+        letterSpacing = '-0.102em';
+        fontWeight = '800';
+        break;
+    case 6:
+        fontSize = '46px';
+        opacity = '1';
+        letterSpacing = '-0.101em';
+        fontWeight = '700';
+        break;
+    case 5:
+        fontSize = '40px';
+        opacity = '0.9';
+        letterSpacing = '0em';
+        fontWeight = '600';
+        break;
+    case 4:
+        fontSize = '32px';
+        opacity = '0.7';
+        letterSpacing = '0.05em';
+        fontWeight = '500';
+        break;
+    case 3:
+        fontSize = '24px';
+        opacity = '0.5';
+        letterSpacing = '0.1em';
+        fontWeight = '400';
+        break;
+    case 2:
+        fontSize = '16px';
+        opacity = '0.2';
+        letterSpacing = '0.15em';
+        fontWeight = '300';
+        break;
+    case 1:
+        fontSize = '12px';
+        opacity = '0.1';
+        letterSpacing = '0.2em';
+        fontWeight = '200';
+        break;
+    case 0:
+        fontSize = '12px';
+        opacity = '0.1';
+        letterSpacing = '0.25em';
+        fontWeight = '100';
+        break;
+    default:
+        fontSize = '12px';
+        opacity = '0.1';
+        letterSpacing = '0.3em';
+        fontWeight = '100';
+}
 
         return { fontSize, opacity, letterSpacing, fontWeight };
     }
 
+	
+	
+	
+	
+	
+	
     // Cargar el resumen de tareas en la sección display, ordenado por urgencia dentro de cada categoría
     function loadTaskSummary() {
-        taskSummaryList.innerHTML = '';
+    taskSummaryList.innerHTML = '';
 
-        if (todos.length > 0) {
-            // Obtener categorías en el orden que aparecen en la lista de agregar
-            const categories = [...new Set(todos.map(todo => todo.category))];
+    if (todos.length > 0) {
+        const categoryOrder = Array.from(categoryInputs).map(input => input.value);
 
-            categories.forEach(category => {
-                // Filtrar y ordenar las tareas por urgencia descendente
-                const filteredTodos = todos.filter(todo => todo.category === category)
-                                           .sort((a, b) => b.urgency - a.urgency);
+        const taskLimits = {
+            'TDAH': 10,  // Mostrar hasta 10 tareas
+            'Cocina': 2,
+            'Pieza': 2,
+            'Otras': 2,
+            'Baño': 1,
+            'patio': 2,
+            'Ropa': 1,
+            'Preparados': 4,
+            'Proyectos': 3
+        };
 
-                // Agregar cada tarea ordenada a la lista de resumen
-                filteredTodos.forEach(todo => {
-                    const li = document.createElement('li');
-                    const contentParts = todo.content.split(' ');
-                    
-                    // Crear el contenido HTML para la tarea
-                    let taskContent = '';
-                    if (contentParts.length > 1) {
-                        taskContent += `<span class="first-words">${contentParts.slice(0, -1).join(' ')}</span>`;
-                    }
-                    taskContent += `<span class="last-word">${contentParts[contentParts.length - 1]}</span>`;
+        categoryOrder.forEach(category => {
+            const filteredTodos = todos.filter(todo => todo.category === category)
+                                       .sort((a, b) => b.urgency - a.urgency);
 
-                    li.innerHTML = taskContent;
+            const limit = taskLimits[category] || 0;
+            const tasksToShow = filteredTodos.slice(0, limit);
 
-                    // Obtener y aplicar estilos
-                    const styles = getStylesForUrgency(todo.urgency);
-                    li.style.fontSize = styles.fontSize;
-                    li.style.opacity = styles.opacity;
-                    li.style.letterSpacing = styles.letterSpacing;
-                    li.style.fontWeight = styles.fontWeight;
+            tasksToShow.forEach(todo => {
+                const li = document.createElement('li');
+                const contentParts = todo.content.split(' ');
 
-                    console.log(`Tarea: ${todo.content} | Urgencia: ${todo.urgency} | Font Size: ${styles.fontSize} | Opacidad: ${styles.opacity} | Letter Spacing: ${styles.letterSpacing} | Font Weight: ${styles.fontWeight}`);
+                let taskContent = '';
+                if (contentParts.length > 1) {
+                    taskContent += `<span class="first-words">${contentParts.slice(0, -1).join(' ')}</span>`;
+                }
+                taskContent += `<span class="last-word">${contentParts[contentParts.length - 1]}</span>`;
 
-                    taskSummaryList.appendChild(li);
+                li.innerHTML = taskContent;
+
+                const styles = getStylesForUrgency(todo.urgency);
+                li.style.fontSize = styles.fontSize;
+                li.style.opacity = styles.opacity;
+                li.style.letterSpacing = styles.letterSpacing;
+                li.style.fontWeight = styles.fontWeight;
+
+                // Agregar el evento de doble clic
+                li.addEventListener('dblclick', () => {
+                    // Establecer la urgencia de la tarea a 0
+                    todo.urgency = 0;
+                    // Actualizar la fecha de modificación y la siguiente modificación
+                    todo.modifiedAt = new Date().toISOString();
+                    todo.nextModification = calculateNewDate(new Date(), todo.frequency);
+
+                    // Guardar los cambios en localStorage
+                    localStorage.setItem("todos", JSON.stringify(todos));
+
+                    // Recargar la lista de tareas
+                    loadTaskSummary();
                 });
+
+                taskSummaryList.appendChild(li);
             });
-        } else {
-            taskSummaryList.innerText = 'No hay tareas.';
-        }
+        });
+    } else {
+        taskSummaryList.innerText = 'No hay tareas.';
     }
+}
+
+// Función para calcular la nueva fecha de modificación
+function calculateNewDate(currentDate, frequency) {
+    const minutesToAdd = (frequency * 24 * 60) / 9; 
+    const newDate = new Date(currentDate.getTime() + minutesToAdd * 60 * 1000);
+    return newDate.toISOString();
+}
+
+// Inicializa la lista al cargar la página
+loadTaskSummary(); 
+
+
 	
 	
 	
@@ -226,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 category,
                 urgency: Math.floor(Math.random() * 9), // 0 a 8
                 importance: Math.floor(Math.random() * 5) + 1, // 1 a 5
-                frequency: Math.floor(Math.random() * 30) + 1, // 1 a 30
+                frequency: Math.floor(Math.random() * 2) + 1, // 1 a 30
                 modifiedAt: new Date().toISOString(), // Fecha y hora actual en formato ISO
                 done: false,
                 nextModification: calculateNewDate(new Date(), Math.floor(Math.random() * 30) + 1)
@@ -248,88 +291,92 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initializeTodos() {
-        todoList.innerHTML = "";
+    todoList.innerHTML = "";
 
-        const categories = [...new Set(todos.map(todo => todo.category))];
+    // Obtener el orden de categorías desde los inputs en el DOM
+    const categoryOrder = Array.from(categoryInputs).map(input => input.value);
 
-        categories.forEach(category => {
-            const categoryElement = document.createElement("div");
-            categoryElement.classList.add("category-item");
+    categoryOrder.forEach(category => {
+        const categoryElement = document.createElement("div");
+        categoryElement.classList.add("category-item");
 
-            const categoryHeader = document.createElement("div");
-            categoryHeader.classList.add("category-header");
-            categoryHeader.innerHTML = `
-                <button class="toggle-category">
-                    <span class="material-icons">
-                        ${expandedCategories[category] ? "keyboard_arrow_down" : "keyboard_arrow_right"}
-                    </span>
-                </button>
-                <span>${category}</span>
-            `;
+        const categoryHeader = document.createElement("div");
+        categoryHeader.classList.add("category-header");
+        categoryHeader.innerHTML = `
+            <button class="toggle-category">
+                <span class="material-icons">
+                    ${expandedCategories[category] ? "keyboard_arrow_down" : "keyboard_arrow_right"}
+                </span>
+            </button>
+            <span>${category}</span>
+        `;
 
-            categoryElement.appendChild(categoryHeader);
+        categoryElement.appendChild(categoryHeader);
 
-            const taskList = document.createElement("div");
-            taskList.classList.add("task-list");
-            taskList.style.display = expandedCategories[category] ? "block" : "none";
+        const taskList = document.createElement("div");
+        taskList.classList.add("task-list");
+        taskList.style.display = expandedCategories[category] ? "block" : "none";
 
-            const filteredTodos = todos.filter(todo => todo.category === category);
+        // Filtrar y ordenar las tareas por urgencia, importancia y frecuencia
+        const filteredTodos = todos.filter(todo => todo.category === category);
 
-            filteredTodos.sort((a, b) => {
-                if (b.urgency !== a.urgency) return b.urgency - a.urgency;
-                if (b.importance !== a.importance) return b.importance - a.importance;
-                return a.frequency - b.frequency;
-            });
-
-            filteredTodos.forEach((todo, index) => {
-                const todoItem = document.createElement("div");
-                todoItem.classList.add("todo-item");
-                todoItem.dataset.index = todos.indexOf(todo); 
-                todoItem.dataset.category = category; 
-                todoItem.innerHTML = `
-                    <div class="todo-content">
-                        <div class="todo-header">
-                            <p>${todo.content}</p>
-                            <input type="text" class="edit-input" style="display:none;" value="${todo.content}">
-                            <div class="actions">
-                                <button class="material-icons edit">edit</button>
-                                <button class="material-icons save" style="display:none;">save</button>
-                                <button class="material-icons delete">delete</button>
-                            </div>
-                        </div>
-                        <div class="details">
-                            <div class="detail-card">
-                                <button class="arrow left" data-index="${todos.indexOf(todo)}" data-type="urgency" data-category="${category}">&#9660;</button>
-                                <span>${todo.urgency}</span>
-                                <button class="arrow right" data-index="${todos.indexOf(todo)}" data-type="urgency" data-category="${category}">&#9650;</button>
-                            </div>
-                            <div class="detail-card">
-                                <button class="arrow left" data-index="${todos.indexOf(todo)}" data-type="importance" data-category="${category}">&#9660;</button>
-                                <span>${todo.importance}</span>
-                                <button class="arrow right" data-index="${todos.indexOf(todo)}" data-type="importance" data-category="${category}">&#9650;</button>
-                            </div>
-                            <div class="detail-card">
-                                <button class="arrow left" data-index="${todos.indexOf(todo)}" data-type="frequency" data-category="${category}">&#9660;</button>
-                                <span>${todo.frequency}</span>
-                                <button class="arrow right" data-index="${todos.indexOf(todo)}" data-type="frequency" data-category="${category}">&#9650;</button>
-                            </div>
-                        </div>
-                        <div class="modified-at">
-                            <small>Modificado: ${new Date(todo.modifiedAt).toLocaleString()}</small>
-                            <small> ${new Date(todo.nextModification).toLocaleString()}</small>
-                        </div>
-                    </div>
-                `;
-
-                taskList.appendChild(todoItem);
-            });
-
-            categoryElement.appendChild(taskList);
-            todoList.appendChild(categoryElement);
+        filteredTodos.sort((a, b) => {
+            if (b.urgency !== a.urgency) return b.urgency - a.urgency;
+            if (b.importance !== a.importance) return b.importance - a.importance;
+            return a.frequency - b.frequency;
         });
 
-        addEventListeners();
-    }
+        // Agregar las tareas ordenadas a la lista de la categoría
+        filteredTodos.forEach((todo, index) => {
+            const todoItem = document.createElement("div");
+            todoItem.classList.add("todo-item");
+            todoItem.dataset.index = todos.indexOf(todo); 
+            todoItem.dataset.category = category; 
+            todoItem.innerHTML = `
+                <div class="todo-content">
+                    <div class="todo-header">
+                        <p>${todo.content}</p>
+                        <input type="text" class="edit-input" style="display:none;" value="${todo.content}">
+                        <div class="actions">
+                            <button class="material-icons edit">edit</button>
+                            <button class="material-icons save" style="display:none;">save</button>
+                            <button class="material-icons delete">delete</button>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="detail-card">
+                            <button class="arrow left" data-index="${todos.indexOf(todo)}" data-type="urgency" data-category="${category}">&#9660;</button>
+                            <span>${todo.urgency}</span>
+                            <button class="arrow right" data-index="${todos.indexOf(todo)}" data-type="urgency" data-category="${category}">&#9650;</button>
+                        </div>
+                        <div class="detail-card">
+                            <button class="arrow left" data-index="${todos.indexOf(todo)}" data-type="importance" data-category="${category}">&#9660;</button>
+                            <span>${todo.importance}</span>
+                            <button class="arrow right" data-index="${todos.indexOf(todo)}" data-type="importance" data-category="${category}">&#9650;</button>
+                        </div>
+                        <div class="detail-card">
+                            <button class="arrow left" data-index="${todos.indexOf(todo)}" data-type="frequency" data-category="${category}">&#9660;</button>
+                            <span>${todo.frequency}</span>
+                            <button class="arrow right" data-index="${todos.indexOf(todo)}" data-type="frequency" data-category="${category}">&#9650;</button>
+                        </div>
+                    </div>
+                    <div class="modified-at">
+                        <small>Modificado: ${new Date(todo.modifiedAt).toLocaleString()}</small>
+                        <small> ${new Date(todo.nextModification).toLocaleString()}</small>
+                    </div>
+                </div>
+            `;
+
+            taskList.appendChild(todoItem);
+        });
+
+        categoryElement.appendChild(taskList);
+        todoList.appendChild(categoryElement);
+    });
+
+    addEventListeners();
+}
+
 
     function addEventListeners() {
         document.querySelectorAll(".arrow").forEach(button => {

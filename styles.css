@@ -5,7 +5,7 @@
     --grey: #888;
     --dark: #313154;
     --danger: #ff5b57;
-    --secondary: #612EF7;
+    --secondary: #00e9f6;
 
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     --glow-secondary: 0px 0px 4px rgba(97, 46, 247, 0.75);
@@ -47,7 +47,7 @@ body {
 			transform: translateZ(0);
 			font-family: 'Saira Semi Condensed', sans-serif;
 			font-weight: 800;
-			color: #434343;
+			color: rgba(255, 255, 255, 0.15); /* Blanco al 5% */
 		}
 
 		.dia_mes {
@@ -115,9 +115,9 @@ body {
     box-shadow: var(--shadow);
     background:
         radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
-        radial-gradient(circle at 80% 30%, rgba(25, 25, 51, 0.7), transparent 70%),
-        radial-gradient(circle at 50% 70%, rgba(0, 0, 0, 0.2), transparent 80%),
-        rgba(0, 0, 0, 0.45);
+        radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
+        radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%),
+        rgba(19, 19, 19, 0.8);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -148,9 +148,9 @@ section {
 #task-summary-list {
     display: flex;
     flex-wrap: wrap; /* Permite que los elementos se ajusten a la siguiente línea si no caben en una sola */
-    gap: 1em; /* Espacio entre elementos (ajusta según sea necesario) */
+    gap: 0.4em 0.5em; /* Espacio entre elementos (ajusta según sea necesario) */
     padding: 0; /* Elimina el relleno por defecto */
-    margin: 0; /* Elimina el margen por defecto */
+    margin: 20px 0 0 10px; /* Elimina el margen por defecto */
     list-style-type: none; /* Elimina los puntos de la lista */
 	color: var(--secondary);
 }
@@ -224,19 +224,19 @@ section {
 
 main.app {
     width: 100%;
-    max-width: 600px; /* Ajusta el ancho máximo del contenido */
-    box-shadow: var(--shadow); /* Añade sombra al contenedor usando una variable */
-    background: 
-        radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%), /* Primer gradiente radial */
-        radial-gradient(circle at 80% 30%, rgba(25, 25, 51, 0.7), transparent 70%), /* Segundo gradiente radial */
-        radial-gradient(circle at 50% 70%, rgba(0, 0, 0, 0.2), transparent 80%), /* Tercer gradiente radial */
-        rgba(0, 0, 0, 0.45); /* Fondo negro sólido con 50% de opacidad */
-    border-radius: 10px; /* Bordes redondeados del contenedor */
-    display: flex; /* Usa flexbox para el layout */
-    flex-direction: column; /* Organiza los elementos hijos verticalmente */
-    padding-bottom: 2rem; /* Añade espacio en la parte inferior para las tareas adicionales */
-    height: 100vh; /* Hace que el contenedor ocupe toda la altura del viewport */
-    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido supera el tamaño del contenedor */
+    max-width: 600px;
+    box-shadow: var(--shadow);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
+        radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
+        radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%),
+        rgba(19, 19, 19, 0.8);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+    height: 100vh;
+    overflow-y: auto;
 }
 section {
 	margin: 0.5rem 1.5rem 1rem; /* Reduce el espacio superior y mantiene el espacio inferior */
@@ -476,7 +476,7 @@ input:checked ~ .bubble::after {
 }
 
 /* Botón para desplegar la categoría */
-.category-header .material-icons {
+.category-header .material-symbols-outlined {
     background: none;
     border: none;
     font-size: 1.25rem;
@@ -485,7 +485,7 @@ input:checked ~ .bubble::after {
     transition: transform 0.3s ease; /* Transición para el icono */
 }
 
-.category-header .material-icons.rotated {
+.category-header .material-symbols-outlined.rotated {
     transform: rotate(-90deg); /* Rotar el icono al desplegar */
 }
 

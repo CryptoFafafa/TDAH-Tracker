@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Personalizado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Display Section -->
+	<div class="display">
+		<!-- Sección 1: Reloj -->
+		<div class="reloj" id="clock">
+			<div class="dia_mes">
+				<div class="dia"></div>
+				<div class="mes"></div>
+				<div class="fecha"></div>
+			</div>
+
+			<div class="hora">
+				<div id="hours" class="p"></div>
+				<div id="minutes" class="p"></div>
+				<div id="seconds" class="p"></div>
+			</div>
+		</div>
+
+		<!-- Sección 2: Resumen de Tareas -->
+		<div class="task-summary">
+			
+			<ul id="task-summary-list">
+				<!-- Aquí se agregarán las tareas dinámicamente -->
+			</ul>
+		</div>
+	</div>
+	<!-- End of Display Section -->
+	
+	<!-- Display Bar -->
+	<div class="display-bar" id="displayBar">
+		Mostrar Aplicación
+	</div>
+
+	<!-- App Wrapper -->
+	<main class="app">
+		<!-- Greeting -->
+		<section class="greeting">
+			<h2 class="title">
+				Hola, <input type="text" id="name" placeholder="Escribe tu nombre" />
+			</h2>
+		</section>
+		<!-- End of Greeting -->
+		
+		<!-- New Todo -->
+		<section class="create-todo">
+			<h2>Agregar tarea</h2>
+			<form id="new-todo-form">
+				<input 
+					type="text" 
+					placeholder="ej: Limpiar pieza"
+					name="content"
+					id="content" />
+				<h4>CATEGORÍA</h4>
+				<div class="options">
+					<label>
+						<input type="radio" name="category" id="category1" value="TDAH" /> 
+						<span class="bubble tdah"></span>
+						<div>TDAH</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category2" value="Cocina" />
+						<span class="bubble cocina"></span>
+						<div>Cocina</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category3" value="Pieza" />
+						<span class="bubble pieza"></span>
+						<div>Pieza</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category4" value="Otras" />
+						<span class="bubble otras"></span>
+						<div>Otras</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category5" value="Baño" />
+						<span class="bubble bano"></span>
+						<div>Baño</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category6" value="Patio" />
+						<span class="bubble patio"></span>
+						<div>Patio</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category7" value="Ropa" />
+						<span class="bubble ropa"></span>
+						<div>Ropa</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category8" value="Preparados" />
+						<span class="bubble preparados"></span>
+						<div>Preparados</div>
+					</label>
+					<label>
+						<input type="radio" name="category" id="category9" value="Proyectos" />
+						<span class="bubble proyectos"></span>
+						<div>Proyectos</div>
+					</label>
+				</div>
+				<input type="submit" value="Agregar tarea" />
+			</form>
+		</section>
+		<!-- End of New Todo -->
+
+		<!-- Todo List -->
+		<section class="todo-list">
+			<h3>Lista de tareas</h3>
+			<div class="list" id="todo-list"></div>
+		</section>
+		<!-- End of Todo List -->
+	</main>
+	<!-- End of App Wrapper -->
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
