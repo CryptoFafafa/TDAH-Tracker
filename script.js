@@ -304,7 +304,7 @@ loadTaskSummary();
         categoryHeader.classList.add("category-header");
         categoryHeader.innerHTML = `
             <button class="toggle-category">
-                <span class="material-icons">
+                <span class="material-symbols-outlined">
                     ${expandedCategories[category] ? "keyboard_arrow_down" : "keyboard_arrow_right"}
                 </span>
             </button>
@@ -338,9 +338,9 @@ loadTaskSummary();
                         <p>${todo.content}</p>
                         <input type="text" class="edit-input" style="display:none;" value="${todo.content}">
                         <div class="actions">
-                            <button class="material-icons edit">edit</button>
-                            <button class="material-icons save" style="display:none;">save</button>
-                            <button class="material-icons delete">delete</button>
+                            <button class="material-symbols-outlined edit">edit</button>
+                            <button class="material-symbols-outlined save" style="display:none;">save</button>
+                            <button class="material-symbols-outlined delete">delete</button>
                         </div>
                     </div>
                     <div class="details">
@@ -406,7 +406,7 @@ loadTaskSummary();
                 taskList.style.display = isExpanded ? "none" : "block";
                 expandedCategories[categoryName] = !isExpanded;
                 localStorage.setItem("expandedCategories", JSON.stringify(expandedCategories));
-                e.target.querySelector(".material-icons").textContent = isExpanded ? "keyboard_arrow_right" : "keyboard_arrow_down";
+                e.target.querySelector(".material-symbols-outlined").textContent = isExpanded ? "keyboard_arrow_right" : "keyboard_arrow_down";
             });
         });
 

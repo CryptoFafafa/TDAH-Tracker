@@ -514,9 +514,9 @@ background-color: rgba(255, 255, 255, 0.01); /* Blanco al 5% */
     transition: background-color 0.3s ease; /* Transición de color */
 }
 
-.todo-item:hover {
+/*.todo-item:hover {
    
-}
+}*/
 
 /* Contenido de la tarea */
 .todo-content {
@@ -612,7 +612,6 @@ background-color: rgba(255, 255, 255, 0.01); /* Blanco al 5% */
 }
 /* Estilos para las listas de tareas en el display */
 
-}
 
 #task-summary-list li:hover {
     color: #007BFF; /* Color del texto al pasar el cursor */
