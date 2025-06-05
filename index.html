@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reloj Simple</title>
-  <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --header-height: 200px;
+      --display-bg: #1a1a1a; /* Negro no puro */
     }
 
     body {
@@ -19,33 +18,33 @@
       height: 100vh;
       overflow: hidden;
       background: #313154;
-      min-width: 405px;
-      display: flex;
-      justify-content: center;
       font-family: 'Saira Semi Condensed', sans-serif;
       font-weight: 800;
+      display: flex;
+      justify-content: center;
+      align-items: start;
     }
 
     .app {
-      width: 405px;
+      width: 100%;
+      max-width: 405px;
       height: 100vh;
-      background: linear-gradient(180deg,
-          rgba(19, 19, 19, 0.95) 0%,
-          rgba(19, 19, 19, 0.8) 100%);
+      background: linear-gradient(180deg, rgba(19, 19, 19, 0.95) 0%, rgba(19, 19, 19, 0.8) 100%);
       position: relative;
-      overflow: hidden;
     }
 
     .header {
       width: 100%;
-      padding: 15px 20px 60px 20px;
+      height: var(--header-height);
+      padding: 15px 20px;
       background: radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
-        radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
-        radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%);
+                  radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
+                  radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      box-sizing: border-box;
+      z-index: 1;
       position: relative;
-      z-index: 2;
     }
 
     .reloj {
@@ -59,8 +58,8 @@
       text-transform: uppercase;
       font-size: 37px;
       white-space: nowrap;
-      width: 192px;
       letter-spacing: var(--dia-spacing);
+      width: 192px;
     }
 
     .mes {
@@ -93,56 +92,41 @@
 
     .display {
       position: absolute;
-      top: 135px; /* se superpone 30px sobre el header */
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #121212;
-      padding: 50px 20px 30px;
-      color: #fff;
-      font-size: 18px;
-      overflow-y: auto;
-      z-index: 1;
-    }
-
-    .display::before {
-      content: "";
-      position: absolute;
-      top: -30px;
+      top: calc(var(--header-height) - 30px); /* se superpone 30px */
       left: 0;
       width: 100%;
-      height: 60px;
-      background: #121212;
-      border-radius: 0 0 50% 50%;
-      z-index: -1;
+      height: calc(100vh - var(--header-height) + 30px);
+      background: var(--display-bg);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      padding: 20px;
+      box-sizing: border-box;
     }
   </style>
 </head>
-
 <body>
   <div class="app">
     <div class="header">
       <div class="reloj" id="clock">
         <div class="dia_mes">
-          <div class="dia">LUNES</div>
+          <div class="dia">VIERNES</div>
           <div class="mes">JUNIO</div>
           <div class="fecha">5</div>
         </div>
         <div class="hora">
-          <div id="hours" class="p">12</div>
-          <div id="minutes" class="p">34</div>
-          <div id="seconds" class="p">56</div>
+          <div id="hours" class="p">09</div>
+          <div id="minutes" class="p">30</div>
+          <div id="seconds" class="p">45</div>
         </div>
       </div>
     </div>
-
     <div class="display">
-      <p>Este es el contenido del display, que se superpone al borde del header.</p>
-      <p>La curva invertida simula que emerge desde el fondo.</p>
+      <!-- Contenido del display -->
+      <p style="color: white;">Este es el contenido del display superpuesto.</p>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
-
 </html>
