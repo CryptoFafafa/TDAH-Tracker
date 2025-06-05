@@ -23,19 +23,25 @@
         .app {
             width: 405px;
             height: 185vh;
-            padding: 0 20px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            background:
-                radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
-                radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
-                radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%),
-                rgba(19, 19, 19, 0.8);
-            border-radius: 10px;
+            background: linear-gradient(180deg, 
+                rgba(19, 19, 19, 0.95) 0%,
+                rgba(19, 19, 19, 0.8) 100%);
             position: relative;
         }
 
+        .header {
+            width: 100%;
+            padding: 15px 20px;
+            background: radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
+                       radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
+                       radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-sizing: border-box;
+        }
+
         .reloj {
-            width: calc(100vw - 40px);
+            width: calc(100% - 40px);
             max-width: 405px;
             color: rgba(255, 255, 255, 0.15);
             position: relative;
@@ -83,21 +89,21 @@
 </head>
 <body>
     <div class="app">
-        <div class="reloj" id="clock">
-            <div class="dia_mes">
-            <div class="dia"></div>
-            <div class="mes"></div>
-            <div class="fecha"></div>
-        </div>
-
-        <div class="hora">
-            <div id="hours" class="p"></div>
-            <div id="minutes" class="p"></div>
-            <div id="seconds" class="p"></div>
-        </div>
+        <div class="header">
+            <div class="reloj" id="clock">
+                <div class="dia_mes">
+                    <div class="dia"></div>
+                    <div class="mes"></div>
+                    <div class="fecha"></div>
+                </div>
+                <div class="hora">
+                    <div id="hours" class="p"></div>
+                    <div id="minutes" class="p"></div>
+                    <div id="seconds" class="p"></div>
+                </div>
+            </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html> 
