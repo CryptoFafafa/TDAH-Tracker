@@ -34,18 +34,23 @@
     }
 
     .header {
-      width: 100%;
-      height: var(--header-height);
-      padding: 15px 20px;
-      background: radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
-                  radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
-                  radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      box-sizing: border-box;
-      z-index: 1;
-      position: relative;
-    }
+  position: relative;
+  height: 280px; /* o el valor que estés usando */
+  background-color: #60676C; /* tu color base */
+  background-image: radial-gradient(
+    circle at top center,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.03) 40%,
+    transparent 60%
+  );
+  background-size: 240px 240px; /* ajustá el tamaño del círculo */
+  background-repeat: repeat-x;
+  background-position: top center;
+  color: white;
+  z-index: 1;
+}
+
 
     .reloj {
       width: calc(100% - 40px);
