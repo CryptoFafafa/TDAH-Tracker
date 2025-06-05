@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reloj Simple</title>
   <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <style>
     * {
       box-sizing: border-box;
@@ -37,27 +36,15 @@
     }
 
     .header {
-      position: relative;
       width: 100%;
-      padding: 15px 20px 60px 20px; /* espacio inferior */
+      padding: 15px 20px 60px 20px;
       background: radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
         radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
         radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
       z-index: 2;
-    }
-
-    .header::after {
-      content: "";
-      position: absolute;
-      bottom: -30px;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      background: #121212;
-      border-radius: 0 0 50% 50%;
-      z-index: -1;
     }
 
     .reloj {
@@ -105,16 +92,29 @@
 
     .display {
       position: absolute;
-      top: 165px; /* altura del header + curva */
+      top: 100%;
       left: 0;
       right: 0;
-      bottom: 0;
+      height: calc(100vh - 135px); /* ajusta si es necesario */
       background: #121212;
-      padding: 30px 20px;
+      margin-top: -30px;
+      padding: 50px 20px 30px;
       color: #fff;
       font-size: 18px;
       overflow-y: auto;
       z-index: 1;
+    }
+
+    .display::before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: #121212;
+      border-radius: 0 0 50% 50%;
+      z-index: -1;
     }
   </style>
 </head>
@@ -137,13 +137,9 @@
     </div>
 
     <div class="display">
-      <p>Contenido de la sección display.</p>
-      <p>Esto ocupa todo el alto restante sin tapar el reloj.</p>
-      <p>Puedes hacer scroll si hay más contenido.</p>
+      <p>Display superpuesto desde el borde real del header.</p>
     </div>
   </div>
-
-  <script src="script.js"></script>
 </body>
 
 </html>
