@@ -1,131 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reloj Personalizado</title>
+    <title>Reloj Simple</title>
     <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 185vh;
+            overflow: hidden;
+            background: #313154;
+            min-width: 405px;
+            display: flex;
+            justify-content: center;
+            font-family: 'Saira Semi Condensed', sans-serif;
+            font-weight: 800;
+        }
+
+        .app {
+            width: 405px;
+            height: 185vh;
+            padding: 0 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
+                radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
+                radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%),
+                rgba(19, 19, 19, 0.8);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .reloj {
+            width: calc(100vw - 40px);
+            max-width: 405px;
+            color: rgba(255, 255, 255, 0.15);
+            position: relative;
+        }
+
+        .dia {
+            text-transform: uppercase;
+            font-size: 37px;
+            white-space: nowrap;
+            padding-bottom: -20px;
+            width: 192px;
+            text-justify: auto;
+            letter-spacing: var(--dia-spacing);
+        }
+
+        .mes {
+            margin-top: -16px;
+            font-size: 23px;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-align: justify;
+            letter-spacing: var(--mes-spacing);
+            width: 192px;
+        }
+
+        .fecha {
+            margin-left: 194px;
+            margin-top: -95px;
+            font-size: 74px;
+            display: flex;
+            width: 67px;
+        }
+
+        .hora {
+            position: absolute;
+            margin-top: -85px;
+            left: 335px;
+            font-size: 35px;
+            line-height: 29px;
+            width: 44px;
+        }
+
+    </style>
 </head>
-
 <body>
-    <!-- Display Section -->
-	<div class="display">
-		<!-- Sección 1: Reloj -->
-		<div class="reloj" id="clock">
-			<div class="dia_mes">
-				<div class="dia"></div>
-				<div class="mes"></div>
-				<div class="fecha"></div>
-			</div>
+    <div class="app">
+        <div class="reloj" id="clock">
+            <div class="dia_mes">
+            <div class="dia"></div>
+            <div class="mes"></div>
+            <div class="fecha"></div>
+        </div>
 
-			<div class="hora">
-				<div id="hours" class="p"></div>
-				<div id="minutes" class="p"></div>
-				<div id="seconds" class="p"></div>
-			</div>
-		</div>
-
-		<!-- Sección 2: Resumen de Tareas -->
-		<div class="task-summary">
-			
-			<ul id="task-summary-list">
-				<!-- Aquí se agregarán las tareas dinámicamente -->
-			</ul>
-		</div>
-	</div>
-	<!-- End of Display Section -->
-	
-	<!-- Display Bar -->
-	<div class="display-bar" id="displayBar">
-		Mostrar Aplicación
-	</div>
-
-	<!-- App Wrapper -->
-	<main class="app">
-		<!-- Greeting -->
-		<section class="greeting">
-			<h2 class="title">
-				Hola, <input type="text" id="name" placeholder="Escribe tu nombre" />
-			</h2>
-		</section>
-		<!-- End of Greeting -->
-		
-		<!-- New Todo -->
-		<section class="create-todo">
-			<h2>Agregar tarea</h2>
-			<form id="new-todo-form">
-				<input 
-					type="text" 
-					placeholder="ej: Limpiar pieza"
-					name="content"
-					id="content" />
-				<h4>CATEGORÍA</h4>
-				<div class="options">
-					<label>
-						<input type="radio" name="category" id="category1" value="TDAH" /> 
-						<span class="bubble tdah"></span>
-						<div>TDAH</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category2" value="Cocina" />
-						<span class="bubble cocina"></span>
-						<div>Cocina</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category3" value="Pieza" />
-						<span class="bubble pieza"></span>
-						<div>Pieza</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category4" value="Otras" />
-						<span class="bubble otras"></span>
-						<div>Otras</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category5" value="Baño" />
-						<span class="bubble bano"></span>
-						<div>Baño</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category6" value="Patio" />
-						<span class="bubble patio"></span>
-						<div>Patio</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category7" value="Ropa" />
-						<span class="bubble ropa"></span>
-						<div>Ropa</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category8" value="Preparados" />
-						<span class="bubble preparados"></span>
-						<div>Preparados</div>
-					</label>
-					<label>
-						<input type="radio" name="category" id="category9" value="Proyectos" />
-						<span class="bubble proyectos"></span>
-						<div>Proyectos</div>
-					</label>
-				</div>
-				<input type="submit" value="Agregar tarea" />
-			</form>
-		</section>
-		<!-- End of New Todo -->
-
-		<!-- Todo List -->
-		<section class="todo-list">
-			<h3>Lista de tareas</h3>
-			<div class="list" id="todo-list"></div>
-		</section>
-		<!-- End of Todo List -->
-	</main>
-	<!-- End of App Wrapper -->
-
+        <div class="hora">
+            <div id="hours" class="p"></div>
+            <div id="minutes" class="p"></div>
+            <div id="seconds" class="p"></div>
+        </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
-
-</html>
+</html> 
