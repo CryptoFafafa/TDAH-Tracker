@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reloj Simple</title>
   <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
   <style>
     * {
       box-sizing: border-box;
@@ -93,11 +92,12 @@
 
     .display {
       position: absolute;
-      top: 135px; /* se superpone 30px sobre el header */
+      top: 100%;
       left: 0;
       right: 0;
-      bottom: 0;
+      height: calc(100vh - 135px); /* ajusta si es necesario */
       background: #121212;
+      margin-top: -30px;
       padding: 50px 20px 30px;
       color: #fff;
       font-size: 18px;
@@ -137,12 +137,9 @@
     </div>
 
     <div class="display">
-      <p>Este es el contenido del display, que se superpone al borde del header.</p>
-      <p>La curva invertida simula que emerge desde el fondo.</p>
+      <p>Display superpuesto desde el borde real del header.</p>
     </div>
   </div>
-
-  <script src="script.js"></script>
 </body>
 
 </html>
