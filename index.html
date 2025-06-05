@@ -1,109 +1,143 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reloj Simple</title>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 185vh;
-            overflow: hidden;
-            background: #313154;
-            min-width: 405px;
-            display: flex;
-            justify-content: center;
-            font-family: 'Saira Semi Condensed', sans-serif;
-            font-weight: 800;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reloj Simple</title>
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-        .app {
-            width: 405px;
-            height: 185vh;
-            background: linear-gradient(180deg, 
-                rgba(19, 19, 19, 0.95) 0%,
-                rgba(19, 19, 19, 0.8) 100%);
-            position: relative;
-        }
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 185vh;
+      overflow: hidden;
+      background: #313154;
+      min-width: 405px;
+      display: flex;
+      justify-content: center;
+      font-family: 'Saira Semi Condensed', sans-serif;
+      font-weight: 800;
+    }
 
-        .header {
-            width: 100%;
-            padding: 15px 20px;
-            background: radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
-                       radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
-                       radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            box-sizing: border-box;
-        }
+    .app {
+      width: 405px;
+      height: 185vh;
+      background: linear-gradient(180deg,
+          rgba(19, 19, 19, 0.95) 0%,
+          rgba(19, 19, 19, 0.8) 100%);
+      position: relative;
+    }
 
-        .reloj {
-            width: calc(100% - 40px);
-            max-width: 405px;
-            color: rgba(255, 255, 255, 0.15);
-            position: relative;
-        }
+    .header {
+      position: relative;
+      width: 100%;
+      padding: 15px 20px;
+      background: radial-gradient(circle at 20% 20%, rgba(15, 15, 46, 0.8), transparent 70%),
+        radial-gradient(circle at 80% 30%, rgba(5, 246, 245, 0.2), transparent 70%),
+        radial-gradient(circle at 50% 70%, rgba(245, 0, 0, 0.05), transparent 80%);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      box-sizing: border-box;
+      z-index: 1;
+    }
 
-        .dia {
-            text-transform: uppercase;
-            font-size: 37px;
-            white-space: nowrap;
-            padding-bottom: -20px;
-            width: 192px;
-            text-justify: auto;
-            letter-spacing: var(--dia-spacing);
-        }
+    .header::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: #131313;
+      border-radius: 0 0 50% 50%;
+      z-index: -1;
+    }
 
-        .mes {
-            margin-top: -16px;
-            font-size: 23px;
-            font-weight: 700;
-            text-transform: uppercase;
-            white-space: nowrap;
-            text-align: justify;
-            letter-spacing: var(--mes-spacing);
-            width: 192px;
-        }
+    .reloj {
+      width: calc(100% - 40px);
+      max-width: 405px;
+      color: rgba(255, 255, 255, 0.15);
+      position: relative;
+    }
 
-        .fecha {
-            margin-left: 194px;
-            margin-top: -95px;
-            font-size: 74px;
-            display: flex;
-            width: 67px;
-        }
+    .dia {
+      text-transform: uppercase;
+      font-size: 37px;
+      white-space: nowrap;
+      padding-bottom: -20px;
+      width: 192px;
+      text-justify: auto;
+      letter-spacing: var(--dia-spacing);
+    }
 
-        .hora {
-            position: absolute;
-            margin-top: -85px;
-            left: 330px;
-            font-size: 35px;
-            line-height: 29px;
-            width: 44px;
-        }
+    .mes {
+      margin-top: -16px;
+      font-size: 23px;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-align: justify;
+      letter-spacing: var(--mes-spacing);
+      width: 192px;
+    }
 
-    </style>
+    .fecha {
+      margin-left: 194px;
+      margin-top: -95px;
+      font-size: 74px;
+      display: flex;
+      width: 67px;
+    }
+
+    .hora {
+      position: absolute;
+      margin-top: -85px;
+      left: 330px;
+      font-size: 35px;
+      line-height: 29px;
+      width: 44px;
+    }
+
+    .display {
+      background: white;
+      border-radius: 20px;
+      margin: -30px 20px 0 20px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 2;
+      color: #131313;
+      font-size: 18px;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="app">
-        <div class="header">
-            <div class="reloj" id="clock">
-                <div class="dia_mes">
-                    <div class="dia"></div>
-                    <div class="mes"></div>
-                    <div class="fecha"></div>
-                </div>
-                <div class="hora">
-                    <div id="hours" class="p"></div>
-                    <div id="minutes" class="p"></div>
-                    <div id="seconds" class="p"></div>
-                </div>
-            </div>
+  <div class="app">
+    <div class="header">
+      <div class="reloj" id="clock">
+        <div class="dia_mes">
+          <div class="dia">LUNES</div>
+          <div class="mes">JUNIO</div>
+          <div class="fecha">5</div>
         </div>
+        <div class="hora">
+          <div id="hours" class="p">12</div>
+          <div id="minutes" class="p">34</div>
+          <div id="seconds" class="p">56</div>
+        </div>
+      </div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="display">
+      <p>Contenido de la sección display</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-</html> 
+
+</html>
